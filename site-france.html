@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMA architecture — MILI ARCHITECTES, Saint-Émilion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ink:#0A0A0A;
+    --clay:#0A0A0A;
+    --line:#E2E2E2;
+    --muted:#6E6E6E;
+    --paper2:#F5F5F5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--clay);color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  .display{font-family:'Fraunces',serif;}
+  .mono{font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,64px);}
+
+  .marked{position:relative;}
+
+  /* header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:84px;}
+  .logo{font-family:'Fraunces',serif;font-weight:500;font-size:19px;letter-spacing:0.02em;}
+  .logo span{color:var(--clay);}
+  .navlinks{display:flex;gap:40px;}
+  .navlinks a{font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);transition:color .25s;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a:focus-visible, .btn:focus-visible{outline:2px solid var(--clay);outline-offset:3px;}
+  .navcta{border:1px solid var(--ink);padding:9px 20px;font-size:13px;letter-spacing:0.04em;}
+  .navcta:hover{background:var(--ink);color:var(--bg);}
+  .burger{display:none;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--ink);padding:9px 16px;background:none;cursor:pointer;color:var(--ink);font-family:inherit;}
+
+  /* hero */
+  .hero{
+    padding:14vh 0 10vh;
+    border-bottom:1px solid var(--line);
+    min-height:70vh;
+    display:flex;
+    align-items:flex-end;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:300;
+    font-size:clamp(56px,11vw,168px);
+    line-height:0.92;
+    letter-spacing:-0.01em;
+  }
+  .hero-sub{
+    margin-top:28px;
+    font-size:15px;
+    color:var(--muted);
+    font-weight:300;
+    letter-spacing:0.02em;
+  }
+
+  section{padding:100px 0;border-bottom:1px solid var(--line);}
+  .kicker{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:20px;
+  }
+  h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,4vw,44px);letter-spacing:-0.01em;line-height:1.1;}
+
+  /* philosophy */
+  .philo{display:grid;grid-template-columns:0.9fr 1.1fr;gap:80px;align-items:start;}
+  .philo p{font-size:18px;color:var(--muted);margin-top:24px;max-width:520px;}
+  .philo p + p{margin-top:16px;}
+  .philo-quote{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(22px,2.6vw,30px);
+    line-height:1.35;
+    color:var(--ink);
+  }
+
+  /* services */
+  .svc-list{margin-top:56px;}
+  .svc-row{
+    display:grid;grid-template-columns:100px 1fr 1.2fr;gap:32px;
+    padding:36px 0;
+    border-top:1px solid var(--line);
+    align-items:baseline;
+  }
+  .svc-list .svc-row:last-child{border-bottom:1px solid var(--line);}
+  .svc-idx{font-family:'IBM Plex Mono',monospace;color:var(--clay);font-size:13px;}
+  .svc-name{font-family:'Fraunces',serif;font-size:26px;font-weight:400;}
+  .svc-desc{color:var(--muted);font-size:15px;max-width:440px;}
+
+  /* projects — larges blocs, légende minimale */
+  .proj-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;}
+  .proj-grid{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--line);
+    border-top:1px solid var(--line);
+  }
+  .proj-card{
+    background:var(--paper2);
+    aspect-ratio:4/3;
+    position:relative;
+    display:flex;align-items:flex-end;
+    padding:24px;
+  }
+  .proj-cap{position:relative;}
+  .proj-cap h3{font-family:'Fraunces',serif;font-weight:400;font-size:18px;}
+  .proj-cap .loc{color:var(--muted);font-size:12px;margin-top:2px;letter-spacing:0.02em;}
+
+  .proj-card.photo{padding:0;overflow:hidden;background:#000;}
+  .proj-card.photo .photo-row{display:flex;width:100%;height:100%;}
+  .proj-card.photo .photo-row img{width:50%;height:100%;object-fit:cover;object-position:center;filter:grayscale(1) contrast(1.05);display:block;}
+  .proj-card.photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) 42%);pointer-events:none;}
+  .proj-card.photo .proj-cap{position:absolute;left:24px;bottom:24px;z-index:2;}
+  .proj-card.photo .proj-cap h3, .proj-card.photo .proj-cap .loc{color:#fff;}
+  .proj-card.photo .photo-row.single img{width:100%;}
+
+  /* process */
+  .process{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;}
+  .step{padding:0 28px 0 0;border-left:1px solid var(--line);padding-left:28px;}
+  .step:first-child{border-left:none;padding-left:0;}
+  .step .n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--clay);}
+  .step h4{font-family:'Fraunces',serif;font-size:20px;font-weight:400;margin:16px 0 12px;}
+  .step p{font-size:14px;color:var(--muted);}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+  .about-fig{
+    background:var(--paper2);
+    aspect-ratio:4/5;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .about-fig .mono{color:var(--muted);font-size:12px;}
+  .about-text p{color:var(--muted);font-size:16px;margin-top:20px;max-width:460px;}
+  .about-text p:first-of-type{margin-top:24px;}
+
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:80px;}
+  .contact-item{padding:24px 0;border-top:1px solid var(--line);}
+  .contact-item:last-child{border-bottom:1px solid var(--line);}
+  .contact-item .lbl{font-size:12px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
+  .contact-item .val{font-family:'Fraunces',serif;font-size:22px;margin-top:6px;}
+  .contact-item a.val:hover{color:var(--clay);}
+  .cform{display:flex;flex-direction:column;gap:18px;}
+  .cform label{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-family:'IBM Plex Mono',monospace;}
+  .cform input, .cform textarea{
+    background:transparent;border:none;border-bottom:1px solid var(--line);
+    padding:10px 2px;font-family:'Inter',sans-serif;font-size:15px;color:var(--ink);
+    transition:border-color .25s;
+  }
+  .cform input:focus, .cform textarea:focus{outline:none;border-color:var(--clay);}
+  .cform textarea{resize:vertical;min-height:90px;}
+  .cform-field{display:flex;flex-direction:column;gap:6px;}
+  .submit{
+    margin-top:8px;align-self:flex-start;
+    border:1px solid var(--ink);padding:13px 28px;
+    font-size:13px;letter-spacing:0.05em;text-transform:uppercase;
+    background:none;cursor:pointer;font-family:inherit;color:var(--ink);
+  }
+  .submit:hover{background:var(--ink);color:var(--bg);}
+  .form-note{font-size:13px;color:var(--muted);margin-top:6px;}
+
+  footer{padding:40px 0;}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .foot-inner .mono{font-size:12px;color:var(--muted);}
+  .foot-links{display:flex;gap:24px;}
+  .foot-links a{font-size:13px;color:var(--muted);}
+  .foot-links a:hover{color:var(--ink);}
+
+  @media (max-width:860px){
+    .navlinks{display:none;}
+    .burger{display:inline-block;}
+    .hero{padding:90px 0 60px;}
+    .hero-grid{background-size:50% 100%;}
+    .philo{grid-template-columns:1fr;gap:36px;}
+    .about{grid-template-columns:1fr;gap:40px;}
+    .contact-grid{grid-template-columns:1fr;gap:48px;}
+    .proj-grid{grid-template-columns:1fr;}
+    .svc-row{grid-template-columns:60px 1fr;}
+    .svc-desc{grid-column:1/-1;max-width:100%;}
+    .process{grid-template-columns:1fr 1fr;row-gap:32px;}
+    .step{border-left:none;padding-left:0;}
+    section{padding:64px 0;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">AMA ARCHITECTURE</a>
+    <nav class="navlinks">
+      <a href="#agence">Agence</a>
+      <a href="#projets">Projets</a>
+      <a href="#services">Prestations</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="burger" onclick="document.querySelector('.navlinks').style.display='flex';document.querySelector('.navlinks').style.flexDirection='column';document.querySelector('.navlinks').style.position='absolute';document.querySelector('.navlinks').style.top='84px';document.querySelector('.navlinks').style.right='20px';document.querySelector('.navlinks').style.background='#FFFFFF';document.querySelector('.navlinks').style.border='1px solid #E2E2E2';document.querySelector('.navlinks').style.padding='20px 28px';document.querySelector('.navlinks').style.gap='18px';this.style.display='none';">Menu</button>
+  </div>
+</header>
+
+<section id="agence">
+  <div class="wrap philo">
+    <div>
+      <p class="kicker">Notre approche</p>
+      <h2>Une architecture qui écoute le site avant de le dessiner.</h2>
+    </div>
+    <div>
+      <p class="philo-quote">« Chaque projet commence par une question : que révèle ce terrain, cette lumière, cet usage — et que devons-nous simplement ne pas ajouter ? »</p>
+      <p>Nous concevons des bâtiments sobres, précis dans leurs proportions, pensés pour durer au-delà des tendances. Chaque plan est étudié pour son propre climat et son propre site — au Maroc comme en France : orientation, ventilation naturelle, matériaux locaux.</p>
+      <p>De l'esquisse au dernier détail de chantier, notre équipe accompagne chaque maître d'ouvrage avec la même exigence : construire juste, construire utile.</p>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <p class="kicker">Prestations</p>
+    <h2>Un accompagnement complet, du terrain à la livraison.</h2>
+    <div class="svc-list">
+      <div class="svc-row">
+        <div class="svc-idx">01</div>
+        <div class="svc-name">Conception architecturale</div>
+        <div class="svc-desc">Esquisses, avant-projets et plans d'exécution pour projets résidentiels, tertiaires et institutionnels.</div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-idx">02</div>
+        <div class="svc-name">Permis de construire</div>
+        <div class="svc-desc">Constitution et dépôt des dossiers réglementaires auprès des autorités compétentes, en France.</div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-idx">03</div>
+        <div class="svc-name">Suivi de chantier</div>
+        <div class="svc-desc">Coordination des entreprises, contrôle qualité et respect des délais jusqu'à la réception des travaux.</div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-idx">04</div>
+        <div class="svc-name">Design intérieur</div>
+        <div class="svc-desc">Conception d'espaces intérieurs cohérents avec l'architecture du bâtiment, du gros œuvre aux finitions.</div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-idx">05</div>
+        <div class="svc-name">Urbanisme</div>
+        <div class="svc-desc">Études et plans d'aménagement à l'échelle du quartier ou du lotissement, en cohérence avec le tissu urbain existant.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projets">
+  <div class="wrap">
+    <div class="proj-head">
+      <div>
+        <p class="kicker">Réalisations</p>
+        <h2>Une sélection de projets en cours et livrés.</h2>
+      </div>
+      <p style="color:var(--muted);font-size:14px;max-width:280px;">Le portfolio complet sera publié prochainement avec photographies et plans détaillés.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card"><div class="proj-cap"><h3>Maison de vigneron</h3><div class="loc">Saint-Émilion, France</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Méthode</p>
+    <h2>Quatre étapes, une seule exigence.</h2>
+    <div class="process">
+      <div class="step">
+        <div class="n mono">01</div>
+        <h4>Écoute</h4>
+        <p>Analyse du site, du besoin et du budget du maître d'ouvrage.</p>
+      </div>
+      <div class="step">
+        <div class="n mono">02</div>
+        <h4>Conception</h4>
+        <p>Esquisses puis plans détaillés, en dialogue constant avec le client.</p>
+      </div>
+      <div class="step">
+        <div class="n mono">03</div>
+        <h4>Autorisation</h4>
+        <p>Dépôt et suivi du dossier de permis de construire.</p>
+      </div>
+      <div class="step">
+        <div class="n mono">04</div>
+        <h4>Chantier</h4>
+        <p>Suivi rigoureux jusqu'à la livraison du bâtiment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="agence2">
+  <div class="wrap about">
+    <div class="about-fig marked">
+      <span class="mono">AMA ARCHITECTURE — SAINT-ÉMILION</span>
+    </div>
+    <div class="about-text">
+      <p class="kicker">L'agence</p>
+      <h2>Ancrés dans le Bordelais depuis vingt ans.</h2>
+      <p>AMA architecture est une agence d'architecture basée à Saint-Émilion, dirigée par Karim Mili depuis vingt ans. Nous concevons des projets résidentiels et patrimoniaux dans un vignoble où la pierre, la vigne et la lumière dictent chaque proportion.</p>
+      <p>Nous croyons à une architecture qui se met au service de ceux qui l'habitent — claire dans son plan, honnête dans ses matériaux, économe dans ses moyens.</p>
+      <p style="font-size:14px;color:var(--muted);margin-top:32px;padding-top:20px;border-top:1px solid var(--line);">AMA architecture partage ses fondations avec MILI ARCHITECTES, cabinet basé à Meknès et dirigé par Walid Mili — un regard croisé entre le Bordelais et le Maroc.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="kicker">Contact</p>
+      <h2>Parlons de votre projet.</h2>
+      <div style="margin-top:40px;">
+        <div class="contact-item">
+          <div class="lbl">Adresse</div>
+          <div class="val">Saint-Émilion, France</div>
+        </div>
+        <div class="contact-item">
+          <div class="lbl">Téléphone</div>
+          <a href="tel:+33621197900" class="val" style="display:block;">+33 6 21 19 79 00</a>
+        </div>
+        <div class="contact-item">
+          <div class="lbl">Email</div>
+          <a href="mailto:ama@ama-architecture.fr" class="val" style="display:block;">ama@ama-architecture.fr</a>
+        </div>
+      </div>
+    </div>
+    <form class="cform" onsubmit="event.preventDefault(); this.querySelector('.form-note').textContent='Merci, votre message a été noté.';">
+      <div class="cform-field">
+        <label for="nm">Nom</label>
+        <input id="nm" type="text" placeholder="Votre nom" required>
+      </div>
+      <div class="cform-field">
+        <label for="em">Email</label>
+        <input id="em" type="email" placeholder="vous@exemple.com" required>
+      </div>
+      <div class="cform-field">
+        <label for="ms">Message</label>
+        <textarea id="ms" placeholder="Décrivez votre projet" required></textarea>
+      </div>
+      <button type="submit" class="submit">Envoyer</button>
+      <p class="form-note">Formulaire à connecter à votre messagerie lors de la mise en ligne.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p class="mono">© 2026 AMA ARCHITECTURE — SAINT-ÉMILION</p>
+    <div class="foot-links">
+      <a href="#agence">Agence</a>
+      <a href="#projets">Projets</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

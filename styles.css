@@ -1,0 +1,183 @@
+/* ============================================================
+   MILI ARCHITECTES (Maroc) / AMA ARCHITECTURE (France)
+   Feuille de style commune
+   ============================================================ */
+
+:root{
+  --bg:#FAF8F5;
+  --fg:#151210;
+  --muted:#4F4A44;
+  --dim:#716B62;
+  --faint:#D6D0C7;
+  --line:#E8E3DC;
+  --surface:#F2EEE8;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{height:100%;}
+body{
+  min-height:100%;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:inherit;text-decoration:none;transition:opacity .3s;}
+a:hover,a:focus-visible{opacity:.5;}
+a:focus-visible{outline:1px solid var(--fg);outline-offset:8px;}
+
+/* Lien d'évitement (navigation clavier) */
+.skip{position:absolute;left:-9999px;top:24px;z-index:10;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--bg);padding:10px 16px;border:1px solid var(--fg);}
+.skip:focus{left:24px;opacity:1;}
+
+/* ------------------------------------------------------------
+   Pages centrées : portail pays + accueils Maroc / France
+   ------------------------------------------------------------ */
+body.centered{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(36px,7vh,64px);
+  padding:48px 24px;
+}
+
+.brand{
+  font-weight:300;
+  font-size:clamp(14px,1.6vw,17px);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  text-align:center;
+}
+
+.menu{display:flex;flex-direction:column;align-items:center;gap:22px;}
+.menu a{
+  font-size:clamp(13px,1.4vw,15px);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.switch{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dim);
+}
+
+/* Portail : choix du pays */
+.split{display:flex;align-items:stretch;}
+.side{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;
+  padding:0 clamp(28px,6vw,72px);
+}
+.side:focus-visible{outline-offset:10px;}
+.flag{width:clamp(34px,4.5vw,44px);}
+.flag svg{display:block;width:100%;height:auto;}
+.label{
+  font-size:clamp(12px,1.3vw,14px);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.divider{width:1px;background:var(--line);}
+
+/* ------------------------------------------------------------
+   Pages intérieures
+   ------------------------------------------------------------ */
+body.subpage{display:flex;flex-direction:column;}
+
+.site-header{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:20px 32px;flex-wrap:wrap;
+  padding:clamp(24px,4vw,40px) clamp(24px,5vw,56px);
+}
+.site-header .brand{text-align:left;font-size:14px;}
+
+.site-nav{display:flex;gap:clamp(18px,3vw,36px);flex-wrap:wrap;}
+.site-nav a{
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  padding-bottom:6px;
+}
+.site-nav a[aria-current="page"]{border-bottom:1px solid var(--fg);}
+
+main{flex:1;width:100%;}
+.page{
+  max-width:760px;margin:0 auto;
+  padding:clamp(40px,9vh,104px) 24px clamp(64px,10vh,120px);
+}
+.page--wide{max-width:1120px;}
+.page>h1{
+  font-size:clamp(20px,3vw,28px);
+  letter-spacing:.2em;text-transform:uppercase;font-weight:300;
+  margin-bottom:clamp(32px,6vh,56px);
+}
+.page p{
+  color:var(--muted);font-weight:400;
+  font-size:15px;line-height:1.9;max-width:62ch;
+}
+.page p+p{margin-top:1.3em;}
+
+/* Agence : valeurs */
+.values{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:40px 32px;
+  margin-top:clamp(48px,8vh,80px);
+}
+.values h2{
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:300;margin-bottom:12px;
+}
+.values p{font-size:13px;line-height:1.7;}
+
+/* Projets */
+.projects{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:clamp(28px,3.5vw,44px);
+}
+.project .thumb{
+  aspect-ratio:4/3;background:var(--surface);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--faint);font-size:18px;letter-spacing:.3em;
+  margin-bottom:16px;
+}
+.project h2{
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:300;margin-bottom:6px;
+}
+.project .meta{font-size:12px;color:var(--dim);letter-spacing:.06em;}
+
+/* Prestations */
+.services{border-bottom:1px solid var(--line);}
+.service{
+  display:grid;grid-template-columns:56px 1fr;gap:12px 28px;
+  padding:clamp(24px,4vh,36px) 0;
+  border-top:1px solid var(--line);
+}
+.service .num{
+  font-size:11px;letter-spacing:.2em;color:var(--dim);
+  padding-top:3px;
+}
+.service h2{
+  font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:300;margin-bottom:10px;
+}
+.service p{font-size:14px;}
+
+/* Contact */
+.contact-list{display:flex;flex-direction:column;gap:clamp(32px,5vh,44px);}
+.contact-item .k{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:10px;
+}
+.contact-item .v{font-size:16px;font-weight:300;line-height:1.6;letter-spacing:.02em;}
+
+/* Pied de page */
+.site-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px 24px;flex-wrap:wrap;
+  padding:32px clamp(24px,5vw,56px);
+  border-top:1px solid var(--line);
+}
+.site-footer span,.site-footer a{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);
+}
